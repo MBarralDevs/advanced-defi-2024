@@ -4,10 +4,12 @@ pragma solidity 0.8.24;
 import {Test, console2} from "forge-std/Test.sol";
 import {IERC20} from "../../../src/interfaces/IERC20.sol";
 import {IWETH} from "../../../src/interfaces/IWETH.sol";
-import {IUniswapV2Router02} from
-    "../../../src/interfaces/uniswap-v2/IUniswapV2Router02.sol";
-import {IUniswapV2Pair} from
-    "../../../src/interfaces/uniswap-v2/IUniswapV2Pair.sol";
+import {
+    IUniswapV2Router02
+} from "../../../src/interfaces/uniswap-v2/IUniswapV2Router02.sol";
+import {
+    IUniswapV2Pair
+} from "../../../src/interfaces/uniswap-v2/IUniswapV2Pair.sol";
 import {
     DAI,
     WETH,
@@ -52,7 +54,17 @@ contract UniswapV2SwapTest is Test {
         uint256 amountOutMin = 1;
 
         // Write your code here
-        // Don’t change any other code
+        vm.startPrank(user);
+
+        uint256[] memory amounts = router.swapExactTokensForTokens(
+            amountIn, amountOutMin, path, user, block.timestamp
+        );
+
+        vm.stopPrank();
+
+        console2.log("WETH : ", amounts[0]);
+        console2.log("DAI  : ", amounts[1]);
+        console2.log("MKR  : ", amounts[2]);
 
         assertGe(mkr.balanceOf(user), amountOutMin, "MKR balance of user");
     }
