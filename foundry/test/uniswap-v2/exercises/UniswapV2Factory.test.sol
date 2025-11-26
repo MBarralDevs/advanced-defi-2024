@@ -4,10 +4,12 @@ pragma solidity 0.8.24;
 import {Test, console2} from "forge-std/Test.sol";
 import {IERC20} from "../../../src/interfaces/IERC20.sol";
 import {IWETH} from "../../../src/interfaces/IWETH.sol";
-import {IUniswapV2Factory} from
-    "../../../src/interfaces/uniswap-v2/IUniswapV2Factory.sol";
-import {IUniswapV2Pair} from
-    "../../../src/interfaces/uniswap-v2/IUniswapV2Pair.sol";
+import {
+    IUniswapV2Factory
+} from "../../../src/interfaces/uniswap-v2/IUniswapV2Factory.sol";
+import {
+    IUniswapV2Pair
+} from "../../../src/interfaces/uniswap-v2/IUniswapV2Pair.sol";
 import {
     DAI,
     WETH,
@@ -26,11 +28,14 @@ contract UniswapV2FactoryTest is Test {
 
         // Exercise - deploy token + WETH pair contract
         // Write your code here
-        // Don’t change any other code
-        address pair;
+        address pair = factory.createPair(address(token), WETH);
 
         address token0 = IUniswapV2Pair(pair).token0();
         address token1 = IUniswapV2Pair(pair).token1();
+
+        console2.log("Pair address:", pair);
+        console2.log("Token0 address:", token0);
+        console2.log("Token1 address:", token1);
 
         if (address(token) < WETH) {
             assertEq(token0, address(token), "token 0");
