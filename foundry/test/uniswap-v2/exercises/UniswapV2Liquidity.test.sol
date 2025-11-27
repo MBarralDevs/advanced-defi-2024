@@ -4,10 +4,12 @@ pragma solidity 0.8.24;
 import {Test, console2} from "forge-std/Test.sol";
 import {IERC20} from "../../../src/interfaces/IERC20.sol";
 import {IWETH} from "../../../src/interfaces/IWETH.sol";
-import {IUniswapV2Router02} from
-    "../../../src/interfaces/uniswap-v2/IUniswapV2Router02.sol";
-import {IUniswapV2Pair} from
-    "../../../src/interfaces/uniswap-v2/IUniswapV2Pair.sol";
+import {
+    IUniswapV2Router02
+} from "../../../src/interfaces/uniswap-v2/IUniswapV2Router02.sol";
+import {
+    IUniswapV2Pair
+} from "../../../src/interfaces/uniswap-v2/IUniswapV2Pair.sol";
 import {
     DAI,
     WETH,
@@ -43,8 +45,14 @@ contract UniswapV2LiquidityTest is Test {
 
     function test_addLiquidity() public {
         // Exercise - Add liquidity to DAI / WETH pool
-        // Write your code here
-        // Don’t change any other code
+        vm.prank(user);
+        (uint256 amountA, uint256 amountB, uint256 liquidity) = router.addLiquidity(
+            WETH, DAI, 1000000 * 1e18, 100 * 1e18, 1, 1, user, block.timestamp
+        );
+        console2.log("Amount A:", amountA);
+        console2.log("Amount B:", amountB);
+        console2.log("Liquidity tokens minted:", liquidity);
+
         vm.prank(user);
 
         assertGt(pair.balanceOf(user), 0, "LP = 0");
