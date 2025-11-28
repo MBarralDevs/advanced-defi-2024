@@ -73,8 +73,11 @@ contract UniswapV2LiquidityTest is Test {
         pair.approve(address(router), liquidity);
 
         // Exercise - Remove liquidity from DAI / WETH pool
-        // Write your code here
-        // Don’t change any other code
+        (uint256 amountA, uint256 amountB) = router.removeLiquidity(
+            DAI, WETH, liquidity, 1, 1, user, block.timestamp
+        );
+        console2.log("Amount A returned:", amountA);
+        console2.log("Amount B returned:", amountB);
 
         vm.stopPrank();
 
